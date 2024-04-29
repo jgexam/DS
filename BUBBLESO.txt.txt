@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<conio.h>
+
+#define SIZE 5
+
+void main() {
+	int i, j, a[SIZE], flag=0, temp;
+	clrscr();
+	for(i=0; i<SIZE; i++) {
+		printf("\nEnter element: ");
+		scanf("%d", &a[i]);
+	}
+	for(i=0; i<SIZE-1; i++) {
+		for(j=0; j<SIZE-1-i; j++) {
+			if(a[j] > a[j+1]) {
+				temp = a[j];
+				a[j] = a[j+1];
+				a[j+1] = temp;
+				flag = 1;
+			}
+		}
+		if(flag == 0)
+			break;
+	}
+	printf("\nSorted Elements");
+	for(i=0; i<SIZE; i++) {
+		printf("\n%d", a[i]);
+	}
+	getch();
+}

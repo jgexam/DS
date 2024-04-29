@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<conio.h>
+
+#define SIZE 5
+
+void main() {
+	int a[SIZE], i, search;
+	clrscr();
+	for(i = 0; i<SIZE; i++) {
+		printf("\nEnter Element: ");
+		scanf("%d", &a[i]);
+	}
+	printf("\nEnter search element: ");
+	scanf("%d", &search);
+	for(i = 0; i<SIZE; i++) {
+		if(search == a[i]) {
+			printf("\nSearch element found at %d", i+1);
+			break;
+		}
+	}
+	if(i == SIZE) {
+		printf("\nElement not found");
+	}
+	getch();
+}

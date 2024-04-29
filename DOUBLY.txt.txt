@@ -1,0 +1,173 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+void add();
+void display();
+int count();
+void insertAtPosAfter();
+void insertAtPosBefore();
+void deleteAtPos();
+struct node{
+	struct node *prev;
+	int data;
+	struct node *next;
+};
+struct node *head=NULL;
+void main(){
+	int choice;
+	clrscr();
+	while(1){
+		printf("\n\tMenu\n");
+		printf("\n1. Insert\n2. Display\n3. Insert(before)\n4.Insert(After)\n0. Exit");
+		printf("\nEnter your choice: ");
+		scanf("%d",&choice);
+		switch(choice){
+			case 1:
+				add();
+				break;
+			case 2:
+				display();
+				break;
+			case 3:
+				insertAtPosBefore();
+				break;
+			case 4:
+				insertAtPosAfter();
+				break;
+			case 5:
+				deleteAtPos();
+				break;
+			case 0:
+				exit(1);
+				break;
+			default:
+				printf("\nInvalid choice");
+				break;
+		}
+	}
+}
+void add(){
+	struct node *n1,*temp=head;
+	n1 = (struct node *)malloc(sizeof(struct node));
+	printf("Enter data element");
+	scanf("%d",&n1->data);
+	n1->next = NULL;
+	n1->prev=NULL;
+	if (head == NULL){
+		head = n1;
+	}else{
+		while(temp->next != NULL){
+			temp = temp->next;
+		}
+		temp->next = n1;
+		n1->prev = temp;
+	}
+}
+void display(){
+	struct node *temp = head;
+	while(temp != NULL){
+		printf("\n%p -> %d-> %p",temp->prev, temp->data, temp->next);
+		temp = temp->next;
+	}
+}
+
+int count() {
+	int counter=0;
+	struct node *temp=head;
+	while(temp!=NULL){
+		counter++;
+		temp=temp->next;
+	}
+	return counter;
+}
+
+void insertAtPosAfter(){
+	int pos,i;
+	struct node *n1,*temp=head,*n2;
+	printf("\nEnter position");
+	scanf("%d",&pos);
+	if (pos>count()){
+		printf("Overflow");
+	}else{
+		n1 = (struct node*)malloc(sizeof(struct node));
+		printf("Enter data element");
+		scanf("%d",&n1->data);
+		n1->next = NULL;
+		for (i=1;i<=pos;i++){
+			if (i==pos) {
+				n2=temp->next;
+				n1->next = temp->next;
+				temp->next = n1;
+				n1->prev=temp;
+				if(n2!=NULL){
+				      n2->prev=n1;
+				}
+				break;
+			}
+			temp=temp->next;
+		}
+	}
+}
+
+void insertAtPosBefore(){
+	int pos,i;
+	struct node *n1,*temp=head;
+	printf("\nEnter position");
+	scanf("%d",&pos);
+	if (pos>count()){
+		printf("Overflow");
+	}else{
+		n1 = (struct node*)malloc(sizeof(struct node));
+		printf("Enter data element");
+		scanf("%d",&n1->data);
+		n1->next = NULL;
+		n1->prev = NULL;
+		if (pos==1){
+			temp->prev=n1;
+			n1->next=head;
+			head=n1;
+		}else{
+			for (i=1;i<=pos;i++){
+				if (i==pos-1) {
+					n1->next = temp->next;
+					temp->next = n1;
+					break;
+				}
+				temp=temp->next;
+			}
+		}
+	}
+}
+void deleteAtPos(){
+	int pos,i;
+	struct node *n1,*n2,*temp=head;
+	printf("\nEnter position");
+	scanf("%d",&pos);
+	if (pos>count()){
+		printf("Overflow");
+	}else{
+		if (pos==1){
+		       n2=temp;
+		       temp = n2->next;
+		       temp->prev=NULL;
+		       head = temp;
+		       free(n2);
+		}else{
+			for (i=1;i<=pos;i++){
+				n2=temp;
+				if (i==pos-1) {
+					n2->next = temp->next;
+					n2=temp;
+					temp = temp->next;
+					if (temp!=NULL){
+						temp->prev = n2;
+					}
+					free(n2);
+					break;
+				}
+
+				temp=temp->next;
+			}
+		}
+	}
+}

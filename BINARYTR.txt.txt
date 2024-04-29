@@ -1,0 +1,154 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+struct Node *createNode();
+void insert(struct Node *);
+void inOrder(struct Node *);
+void preOrder(struct Node *);
+void postOrder(struct Node *);
+void deleteNode(struct Node *,struct Node *, struct Node *, int);
+
+struct Node {
+  struct Node *left;
+  int data;
+  struct Node *right;
+};
+
+void main() {
+	struct Node *root=NULL;
+	clrscr();
+	if(root == NULL) {
+		root = createNode();
+	}
+	insert(root);
+	insert(root);
+	insert(root);
+	insert(root);
+	insert(root);
+	printf("\nIn Order");
+	inOrder(root);
+	printf("\nPre Order");
+	preOrder(root);
+	printf("\nPost Order");
+	postOrder(root);
+	deleteNode(root, NULL, NULL, 75);
+	printf("\nAfter delete");
+	inOrder(root);
+	getch();
+}
+
+struct Node *createNode() {
+	struct Node *n1;
+	n1 = (struct Node *) malloc(sizeof(struct Node));
+	printf("Enter data: ");
+	scanf("%d", &n1->data);
+	n1->left = NULL;
+	n1->right = NULL;
+	return n1;
+}
+
+int readInput() {
+	int n;
+	printf("Enter data: ");
+	scanf("%d", &n);
+	return n;
+}
+
+void insert(struct Node *root) {
+	struct Node *temp = root, *n2;
+	struct Node *n1 = createNode();
+	while(temp != NULL) {
+		n2 = temp;
+		if(n1->data < temp->data) {
+			temp = temp->left;
+		}
+		else {
+			temp = temp->right;
+		}
+	}
+	if(n1->data < n2->data) {
+		n2->left = n1;
+	} else {
+		n2->right = n1;
+	}
+}
+
+void inOrder(struct Node *root) {
+	if(root == NULL) {
+		return;
+	}
+	inOrder(root->left);
+	printf("\n%d", root->data);
+	inOrder(root->right);
+}
+
+void preOrder(struct Node *root) {
+	if(root == NULL) {
+		return;
+	}
+	printf("\n%d", root->data);
+	preOrder(root->left);
+	preOrder(root->right);
+}
+
+
+void postOrder(struct Node *root) {
+	if(root == NULL) {
+		return;
+	}
+	postOrder(root->left);
+	postOrder(root->right);
+	printf("\n%d", root->data);
+}
+
+void deleteNode(struct Node *root,struct Node *lptr, struct Node *rptr, int val) {
+	struct Node *temp;
+	if(root == NULL) {
+		return;
+	}
+	if(val < root->data) {
+		deleteNode(root->left, root, NULL, val);
+	} else if(val > root->data) {
+		deleteNode(root->right, NULL, root, val);
+	} else {
+		if(root->left == NULL && root->right == NULL) {
+			if(lptr == NULL) {
+				rptr->right = NULL;
+				free(root);
+			} else {
+				lptr->left = NULL;
+				free(root);
+			}
+		}
+		else if(root->left == NULL) {
+				temp = root->right;
+				root->data = temp->data;
+				free(temp);
+				root->right = NULL;
+		} else if(root->right == NULL) {
+				temp = root->left;
+				root->data = temp->data;
+				free(temp);
+				root->left = NULL;
+		}
+	}
+
+}
+
+void deleteNodeWithTwoChildren(struct Node *root) {
+	struct Node *temp = root->right, *prev = root;
+
+	while(temp->left != NULL) {
+		prev = temp;
+		temp = temp->left;
+	}
+	root->data = temp->data;
+	if(prev != root) {
+		root->right = temp->right;
+	}
+	else {
+		prev->left = temp->left;
+	}
+
+}
