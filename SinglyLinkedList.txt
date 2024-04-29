@@ -1,0 +1,155 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+typedef struct Node {
+ int data;
+ struct Node *next;
+};
+
+Node *head = NULL;
+
+void insert() {
+
+ Node *temp = head;
+ Node *new_node = (Node*) malloc(sizeof(Node));
+ printf("Enter data: ");
+ scanf("%d", &new_node->data);
+ new_node->next = NULL;
+ if(head == NULL){
+	head = new_node;
+ }else{
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	temp->next = new_node;
+ }
+}
+
+void display() {
+
+ Node *temp=head;
+ printf("\nLinked List\n");
+ while(temp != NULL) {
+	printf("%d->%p\t",temp->data, temp->next);
+	temp = temp->next;
+ }
+}
+
+void insertAtPosition() {
+    int pos, count=0;
+    Node *temp = head;
+    Node *new_node = (Node*) malloc(sizeof(Node));
+
+    printf("Enter data: ");
+    scanf("%d", &new_node->data);
+    printf("Enter position: ");
+    scanf("%d", &pos);
+
+    if(head == NULL || pos == 1){
+	new_node->next = head;
+	head = new_node;
+    }
+    else {
+     while(temp != NULL) {
+      count++;
+      if(count == pos-1) {
+	new_node->next = temp->next;
+	temp->next = new_node;
+      }
+      temp = temp->next;
+     }
+    }
+}
+
+void insertAfterPosition() {
+    int pos, count=0;
+    Node *temp = head;
+    Node *new_node = (Node*) malloc(sizeof(Node));
+    printf("Enter data: ");
+    scanf("%d", &new_node->data);
+    printf("Enter position: ");
+    scanf("%d", &pos);
+
+    if(head == NULL){
+	new_node->next = head;
+	head = new_node;
+    }
+    else {
+     while(temp != NULL) {
+      count++;
+      if(count == pos) {
+	new_node->next = temp->next;
+	temp->next = new_node;
+      }
+      temp = temp->next;
+     }
+    }
+}
+
+void insertAtMiddle(){
+    Node *temp = head;
+    int count = 0;
+    Node *new_node = (Node*) malloc(sizeof(Node));
+
+    printf("Enter data: ");
+    scanf("%d", &new_node->data);
+
+    if(head == NULL) {
+        new_node->next = head;
+        head = new_node;
+    } else {
+        while(temp != NULL){
+        count ++;
+        temp = temp->next;
+        }
+
+        temp = head;
+        int mid = (count+1) / 2;
+
+        for(int i = 1; i < mid; i++) {
+        temp = temp->next;
+        }
+
+        new_node->next = temp->next;
+        temp->next = new_node;
+    }
+}
+
+void main() {
+ clrscr();
+ while(1) {
+ int choice;
+ printf("\n1. Insert\n");
+ printf("2. Display\n");
+ printf("3. Insert at specific position\n");
+ printf("4. Insert after specific position\n");
+ printf("5. Insert node in middle\n");
+ printf("0. Exit\n");
+ printf("Enter your choice: ");
+ scanf("%d", &choice);
+ switch(choice) {
+  case 1:
+	insert();
+	break;
+  case 2:
+	display();
+	break;
+  case 3:
+	insertAtPosition();
+	break;
+  case 4:
+	insertAfterPosition();
+	break;
+  case 5:
+	insertAtMiddle();
+	break;
+  case 0:
+	exit(1);
+	break;
+  default:
+	printf("Invalid choice");
+ }
+ getch();
+}
+}
