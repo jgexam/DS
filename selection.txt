@@ -1,0 +1,44 @@
+#include<stdio.h>
+
+#include<conio.h>
+
+#define SIZE 6
+
+void main(){
+
+int a[] = {7,4,10,8,3,1};
+
+int i, min, j, temp;
+
+clrscr();
+
+for(i=0;i<SIZE;i++){
+
+min = i;
+
+for(j=i+1;j<SIZE;j++) {
+
+if(a[min] > a[j]){
+
+min = j;
+
+}
+
+}
+
+if(mini){
+
+temp a[min];
+
+a[min] a[i]
+
+}
+
+a[i]temp:
+
+printf("\n%d",a[i]);
+
+}
+
+getch():
+}

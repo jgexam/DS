@@ -1,0 +1,54 @@
+#include<stdio.h>
+
+#include<conio.h>
+
+#define SIZE 5
+
+void main()
+
+{
+
+int a[SIZE], i,j,temp;
+
+clrscr();
+
+printf("\nEnter numbers s :^ prime prime ) ; for -) i = 0 ; i <SIZE;i++)
+
+{
+
+scanf("\n%d" ,8a[i]) ;
+
+} //Sorting code niche che for(i=0;i<SIZE; i++)
+
+{
+
+for(j=0;j<=SIZE-1-1;j++)
+
+{
+
+if(a[j] < a[j - 1])
+
+{
+
+temp = a[j];
+
+a[j] = a[j - 1]
+
+a[j-1] = temp;
+
+}
+
+}
+
+}
+
+for ( i = 0 ;i<SIZE ; i++)
+
+{
+
+}
+
+printf("\n%d",a[i]);
+
+getch();
+}
